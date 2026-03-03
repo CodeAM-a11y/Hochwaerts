@@ -24,6 +24,39 @@ public class HomeController : Controller
     {
         return View();
     }
+    public async Task<IActionResult> kaufen(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var verleihobjekt = await _context.Verleihobjekt
+            .Include(v => v.Bibliothek)
+            .Include(v => v.Buch)
+            .Include(v => v.Status)
+            .Include(v => v.Zauberer)
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (verleihobjekt == null)
+        {
+            return NotFound();
+        }
+
+        return View(verleihobjekt);
+    }
+    [HttpPost, ActionName("kaufen")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var verleihobjekt = await _context.Verleihobjekt.FindAsync(id);
+        if (verleihobjekt != null)
+        {
+            _context.Verleihobjekt.Remove(verleihobjekt);
+        }
+
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

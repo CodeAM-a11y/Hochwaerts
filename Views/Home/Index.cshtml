@@ -24,7 +24,7 @@
                 @Html.DisplayFor(modelItem => item.Buch.Titel)
             </td>
             <td>
-                
+                <a asp-action="kaufen" asp-route-id="@item.Id">kaufen</a>
             </td>
         </tr>
     }

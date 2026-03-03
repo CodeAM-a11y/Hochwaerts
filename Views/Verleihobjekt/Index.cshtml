@@ -16,13 +16,10 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bibliothek)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Buch)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Zauberer)
+                Ausgeliehen von
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Verleihdatum)
@@ -37,16 +34,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Status.Id)
+                @Html.DisplayFor(modelItem => item.Status.Zustand)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bibliothek.Id)
+                @Html.DisplayFor(modelItem => item.Buch.Titel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Buch.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zauberer.Id)
+                @Html.DisplayFor(modelItem => item.Zauberer.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Verleihdatum)
