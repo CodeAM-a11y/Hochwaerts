@@ -53,6 +53,11 @@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 <a asp-action="Ausleihen" asp-route-id="@item.Id">Ausleihen</a>
+                <a asp-action="Zurückgeben" asp-route-id="@item.Id">Zurückgeben</a>
+                @if (item.StatusId == 3)
+                {
+                    <a asp-action="Beschädigt" asp-route-id="@item.Id">Beschädigt</a>
+                }
             </td>
         </tr>
 }

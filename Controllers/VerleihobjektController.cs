@@ -203,13 +203,88 @@ namespace Hochwaerts.Controllers
                 return NotFound();
             }
             verleihobjekt.ZaubererId = input.ZaubererId;
-            verleihobjekt.StatusId = 2;
+            verleihobjekt.StatusId = 2; // Status in der Datenbank prüfen
             verleihobjekt.Verleihdatum = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(verleihobjekt);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!VerleihobjektExists(verleihobjekt.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
+            ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
+            ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            return View(verleihobjekt);
+        }
+        public async Task<IActionResult> Zurückgeben(int id, [Bind("ZaubererId")] Verleihobjekt input)
+        {
+            var verleihobjekt = await _context.Verleihobjekt.FindAsync(id);
+            
+            if (id != verleihobjekt.Id)
+            {
+                return NotFound();
+            }
+            verleihobjekt.StatusId = 3; // Status in der Datenbank prüfen
+            verleihobjekt.Verleihdatum = null;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(verleihobjekt);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!VerleihobjektExists(verleihobjekt.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
+            ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
+            ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            return View(verleihobjekt);
+        }
+        public async Task<IActionResult> Beschädigt(int id, [Bind("ZaubererId")] Verleihobjekt input)
+        {
+            var verleihobjekt = await _context.Verleihobjekt.FindAsync(id);
+            
+            if (id != verleihobjekt.Id)
+            {
+                return NotFound();
+            }
+
+            var buch = await _context.Buch.FindAsync(verleihobjekt.BuchID);
+            buch.Beschaedigungsgrad = true;
+            verleihobjekt.StatusId = 4;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(verleihobjekt);
+                    _context.Update(buch);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
