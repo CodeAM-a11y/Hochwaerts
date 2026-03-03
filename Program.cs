@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Hochwaerts.Models;
 namespace Hochwaerts;
 
 public class Program
@@ -5,6 +8,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddDbContext<HochwaertsDBContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("HochwaertsDBContext") ?? throw new InvalidOperationException("Connection string 'HochwaertsDBContext' not found.")));
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
