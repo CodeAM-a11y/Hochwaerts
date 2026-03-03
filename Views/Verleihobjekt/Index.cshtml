@@ -27,6 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Verleihdatum)
             </th>
+            <th>
+                Mahnstatus
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -49,14 +52,43 @@
                 @Html.DisplayFor(modelItem => item.Verleihdatum)
             </td>
             <td>
+                @{
+                    if (item.Verleihdatum != null)
+                    {
+                        var mahndatum = Convert.ToDateTime(item.Verleihdatum);
+                        if ((DateTime.Now-mahndatum).TotalDays>50)
+                        {
+                            <p>3. Mahnung wurde verschickt</p>
+                        }
+                        else if ((DateTime.Now - mahndatum).TotalDays > 40)
+                        {
+                            <p>2. Mahnung wurde verschickt</p>
+                        }
+                        else if((DateTime.Now - mahndatum).TotalDays > 30)
+                        {
+                            <p>1. Mahnung wurde verschickt</p>
+                        }
+                    }
+                }
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 <a asp-action="Ausleihen" asp-route-id="@item.Id">Ausleihen</a>
                 <a asp-action="Zurückgeben" asp-route-id="@item.Id">Zurückgeben</a>
                 @if (item.StatusId == 3)
+            {
+                <a asp-action="Beschädigt" asp-route-id="@item.Id">Beschädigt</a>
+                <a asp-action="nichtBeschädigt" asp-route-id="@item.Id">nicht Beschädigt</a>
+            }
+                @if (item.Verleihdatum != null)
                 {
-                    <a asp-action="Beschädigt" asp-route-id="@item.Id">Beschädigt</a>
+                    var mahndatum = Convert.ToDateTime(item.Verleihdatum);
+                    if ((DateTime.Now - mahndatum).TotalDays > 50)
+                    {
+                        <a asp-action="verschollen" asp-route-id="@item.Id">verschollen</a>
+                    }
                 }
             </td>
         </tr>
