@@ -1,14 +1,23 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Hochwaerts.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hochwaerts.Controllers;
 
 public class HomeController : Controller
 {
-    public IActionResult Index()
+    private readonly HochwaertsDBContext _context;
+
+    public HomeController(HochwaertsDBContext context)
     {
-        return View();
+        _context = context;
+    }
+    public async Task<IActionResult> Index()
+    {
+        var verkaufbareBücher = _context.Verleihobjekt
+            .Include(x=>x.Buch).Where(y=>y.StatusId==4);
+        return View(await verkaufbareBücher.ToListAsync());
     }
 
     public IActionResult Privacy()

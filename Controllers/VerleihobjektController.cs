@@ -64,6 +64,7 @@ namespace Hochwaerts.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,StatusId,BibliothekId,BuchID,ZaubererId")] Verleihobjekt verleihobjekt)
         {
+            verleihobjekt.StatusId = 1;
             if (ModelState.IsValid)
             {
                 _context.Add(verleihobjekt);

@@ -75,8 +75,14 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                <a asp-action="Ausleihen" asp-route-id="@item.Id">Ausleihen</a>
-                <a asp-action="Zurückgeben" asp-route-id="@item.Id">Zurückgeben</a>
+                @if (item.StatusId == 1)
+                {
+                    <a asp-action="Ausleihen" asp-route-id="@item.Id">Ausleihen</a>
+                }
+                @if (item.StatusId == 2)
+                {
+                    <a asp-action="Zurückgeben" asp-route-id="@item.Id">Zurückgeben</a>
+                }
                 @if (item.StatusId == 3)
             {
                 <a asp-action="Beschädigt" asp-route-id="@item.Id">Beschädigt</a>
@@ -85,7 +91,11 @@
                 @if (item.Verleihdatum != null)
                 {
                     var mahndatum = Convert.ToDateTime(item.Verleihdatum);
-                    if ((DateTime.Now - mahndatum).TotalDays > 50)
+                    if ((DateTime.Now - mahndatum).TotalDays > 415&&item.StatusId==5)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id">abschreiben</a>
+                    }
+                    else if ((DateTime.Now - mahndatum).TotalDays > 50)
                     {
                         <a asp-action="verschollen" asp-route-id="@item.Id">verschollen</a>
                     }
