@@ -107,7 +107,10 @@ namespace Hochwaerts.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ZaubererId")
+                    b.Property<DateTime?>("Verleihdatum")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ZaubererId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -175,9 +178,7 @@ namespace Hochwaerts.Migrations
 
                     b.HasOne("Hochwaerts.Models.Zauberer", "Zauberer")
                         .WithMany("Verleihobjekte")
-                        .HasForeignKey("ZaubererId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ZaubererId");
 
                     b.Navigation("Bibliothek");
 

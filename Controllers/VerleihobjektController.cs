@@ -173,6 +173,65 @@ namespace Hochwaerts.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Ausleihen(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var verleihobjekt = await _context.Verleihobjekt.FindAsync(id);
+            if (verleihobjekt == null)
+            {
+                return NotFound();
+            }
+            ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
+            ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
+            ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            return View(verleihobjekt);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Ausleihen(int id, [Bind("ZaubererId")] Verleihobjekt input)
+        {
+            var verleihobjekt = await _context.Verleihobjekt.FindAsync(id);
+            
+            if (id != verleihobjekt.Id)
+            {
+                return NotFound();
+            }
+            verleihobjekt.ZaubererId = input.ZaubererId;
+            verleihobjekt.StatusId = 2;
+            verleihobjekt.Verleihdatum = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(verleihobjekt);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!VerleihobjektExists(verleihobjekt.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
+            ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
+            ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            return View(verleihobjekt);
+        }
+
         private bool VerleihobjektExists(int id)
         {
             return _context.Verleihobjekt.Any(e => e.Id == id);

@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Zauberer)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Verleihdatum)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,9 +46,13 @@
                 @Html.DisplayFor(modelItem => item.Zauberer.Id)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Verleihdatum)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Ausleihen" asp-route-id="@item.Id">Ausleihen</a>
             </td>
         </tr>
 }
