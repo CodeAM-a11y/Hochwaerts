@@ -53,7 +53,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id");
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id");
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id");
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id");
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name");
             return View();
         }
 
@@ -74,7 +74,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
 
@@ -94,7 +94,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
 
@@ -133,7 +133,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
 
@@ -190,7 +190,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
         [HttpPost]
@@ -229,7 +229,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
         public async Task<IActionResult> Zurückgeben(int id, [Bind("ZaubererId")] Verleihobjekt input)
@@ -242,6 +242,7 @@ namespace Hochwaerts.Controllers
             }
             verleihobjekt.StatusId = 3; // Status in der Datenbank prüfen
             verleihobjekt.Verleihdatum = null;
+            verleihobjekt.ZaubererId = null;
             if (ModelState.IsValid)
             {
                 try
@@ -265,7 +266,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
         public async Task<IActionResult> Beschädigt(int id, [Bind("ZaubererId")] Verleihobjekt input)
@@ -304,7 +305,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
         public async Task<IActionResult> nichtBeschädigt(int id, [Bind("ZaubererId")] Verleihobjekt input)
@@ -343,7 +344,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
         public async Task<IActionResult> verschollen(int id, [Bind("ZaubererId")] Verleihobjekt input)
@@ -379,7 +380,7 @@ namespace Hochwaerts.Controllers
             ViewData["BibliothekId"] = new SelectList(_context.Bibliothek, "Id", "Id", verleihobjekt.BibliothekId);
             ViewData["BuchID"] = new SelectList(_context.Buch, "Id", "Id", verleihobjekt.BuchID);
             ViewData["StatusId"] = new SelectList(_context.Status, "Id", "Id", verleihobjekt.StatusId);
-            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Id", verleihobjekt.ZaubererId);
+            ViewData["ZaubererId"] = new SelectList(_context.Set<Zauberer>(), "Id", "Name", verleihobjekt.ZaubererId);
             return View(verleihobjekt);
         }
 
