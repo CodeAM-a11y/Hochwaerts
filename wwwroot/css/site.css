@@ -39,3 +39,5 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+.table td, .table th { background-color: rgba(255, 255, 255, 0.25) !important;}
+.table { background-color: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(3px); border-radius: 10px; }
