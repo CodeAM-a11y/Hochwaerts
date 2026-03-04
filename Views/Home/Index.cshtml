@@ -10,7 +10,13 @@
 
 
 
+<form method="get" asp-action="FilterAutor">
+    <select name="autor" asp-items="ViewBag.AutorenListe" class="form-select">
+        <option value="">Alle Autoren</option>
+    </select>
 
+    <button type="submit" class="btn btn-primary">Filtern</button>
+</form>
 <table class="table">
     <thead>
     <tr>

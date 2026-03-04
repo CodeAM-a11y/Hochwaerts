@@ -18,6 +18,16 @@ html {
 }
 
 body {
+  background-image: url('/Logo.jpg');
+  /* Pfad zum Bild */
+  background-size: cover;
+  /* Bild wird auf ganze Seite skaliert */
+  background-position: center;
+  /* Zentriert das Bild */
+  background-repeat: no-repeat;
+  /* Bild wird nicht wiederholt */
+  background-attachment: fixed;
+  /* Bild bleibt beim Scrollen stehen */
   margin-bottom: 60px;
 }
 
