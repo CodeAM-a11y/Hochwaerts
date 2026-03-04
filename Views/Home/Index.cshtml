@@ -8,21 +8,19 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-
-
-<form method="get" asp-action="FilterAutor">
-    <select name="autor" asp-items="ViewBag.AutorenListe" class="form-select">
-        <option value="">Alle Autoren</option>
-    </select>
-
-    <button type="submit" class="btn btn-primary">Filtern</button>
-</form>
 <table class="table">
     <thead>
     <tr>
         <th><a asp-action="SortTitel">Sortieren Titel</a></th>
         <th><a asp-action="SortAutor">Sortieren Autor</a></th>
         <th><a asp-action="SortDate">Sortieren Erscheinungsjahr</a></th>
+        <th><form method="get" asp-action="FilterAutor">
+            <select name="autor" asp-items="ViewBag.AutorenListe" class="form-select">
+                <option value="">Alle Autoren</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">Filtern</button>
+        </form></th>
     </tr>
     </thead>
     <tbody>
