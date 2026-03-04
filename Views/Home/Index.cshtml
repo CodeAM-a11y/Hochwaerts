@@ -16,7 +16,7 @@
     <tr>
         <th><a asp-action="SortTitel">Sortieren Titel</a></th>
         <th><a asp-action="SortAutor">Sortieren Autor</a></th>
-        <th>Verkaufbare Bücher</th>
+        <th><a asp-action="SortDate">Sortieren Erscheinungsjahr</a></th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +24,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Buch.Titel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buch.Autoren)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buch.Erscheinungsjahr)
             </td>
             <td>
                 <a asp-action="kaufen" asp-route-id="@item.Id">kaufen</a>

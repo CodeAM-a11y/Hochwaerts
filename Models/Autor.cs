@@ -12,6 +12,6 @@ public class Autor
     public int BuchId { get; set; }
 
     // Navigation Property
-    public Buch Buch { get; set; } = null!;
+    public Buch? Buch { get; set; } = null!;
 
 }

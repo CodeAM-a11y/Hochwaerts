@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Hochwaerts.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hochwaerts.Controllers;
@@ -16,7 +17,8 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var verkaufbareBücher = _context.Verleihobjekt
-            .Include(x=>x.Buch).Where(y=>y.StatusId==4);
+            .Include( verleihobjekt=>verleihobjekt.Buch)
+            .ThenInclude(buch =>buch.Autoren).Where(y=>y.StatusId==4);
         return View(await verkaufbareBücher.ToListAsync());
     }
 
@@ -60,15 +62,24 @@ public class HomeController : Controller
     public async Task<IActionResult> SortTitel()
     {
         var verkaufbareBücher = _context.Verleihobjekt
-            .Include(x=>x.Buch).Where(y=>y.StatusId==4)
+            .Include(x=>x.Buch).ThenInclude(buch =>buch.Autoren ).Where(y=>y.StatusId==4)
             .OrderBy(x=>x.Buch.Titel);
         return View(nameof(Index),await verkaufbareBücher.ToListAsync());
     }
     public async Task<IActionResult> SortAutor()
     {
         var verkaufbareBücher = _context.Verleihobjekt
-            .Include(x=>x.Buch).Where(y=>y.StatusId==4)
-            .OrderBy(x=>x.Buch.Autoren);
+            .Include(verleihobjekt => verleihobjekt.Buch)
+            .ThenInclude(buch =>buch.Autoren )
+            .Where(y=>y.StatusId==4)
+            .OrderBy(x=>x.Buch.Autoren.OrderBy(a=>a.Name).FirstOrDefault().Name);
+        return View(nameof(Index),await verkaufbareBücher.ToListAsync());
+    }
+    public async Task<IActionResult> SortDate()
+    {
+        var verkaufbareBücher = _context.Verleihobjekt
+            .Include(x=>x.Buch).ThenInclude(buch =>buch.Autoren ).Where(y=>y.StatusId==4)
+            .OrderBy(x=>x.Buch.Erscheinungsjahr);
         return View(nameof(Index),await verkaufbareBücher.ToListAsync());
     }
 
