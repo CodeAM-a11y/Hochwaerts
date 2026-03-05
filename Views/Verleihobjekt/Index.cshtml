@@ -71,27 +71,27 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
                 @if (item.StatusId == 1)
                 {
-                    <a asp-action="Ausleihen" asp-route-id="@item.Id">Ausleihen</a>
+                    <a asp-action="Ausleihen" class="action-btn" asp-route-id="@item.Id">Ausleihen</a>
                 }
                 @if (item.StatusId == 2)
                 {
-                    <a asp-action="Zurückgeben" asp-route-id="@item.Id">Zurückgeben</a>
+                    <a asp-action="Zurückgeben" class="action-btn" asp-route-id="@item.Id">Zurückgeben</a>
                 }
                 @if (item.StatusId == 3)
             {
-                <a asp-action="Beschädigt" asp-route-id="@item.Id">Beschädigt</a>
-                <a asp-action="nichtBeschädigt" asp-route-id="@item.Id">nicht Beschädigt</a>
+                <a asp-action="Beschädigt" class="action-btn" asp-route-id="@item.Id">Beschädigt</a>
+                <a asp-action="nichtBeschädigt" class="action-btn" asp-route-id="@item.Id">nicht Beschädigt</a>
             }
                 @if (item.Verleihdatum != null)
                 {
                     var mahndatum = Convert.ToDateTime(item.Verleihdatum);
                     if ((DateTime.Now - mahndatum).TotalDays > 415&&item.StatusId==5)
                     {
-                        <a asp-action="Delete" asp-route-id="@item.Id">abschreiben</a>
+                        <a asp-action="Delete" class="action-btn" asp-route-id="@item.Id">abschreiben</a>
                     }
                     else if ((DateTime.Now - mahndatum).TotalDays > 50)
                     {
-                        <a asp-action="verschollen" asp-route-id="@item.Id">verschollen</a>
+                        <a asp-action="verschollen" class="action-btn" asp-route-id="@item.Id">verschollen</a>
                     }
                 }
             </td>

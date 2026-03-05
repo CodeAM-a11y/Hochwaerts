@@ -61,3 +61,16 @@ h4{
   backdrop-filter: blur(4px);
   border-radius: 10px;
 }
+.action-btn {
+  background-color: #800020;
+  color: #fff;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.action-btn:hover {
+  background-color: #222;
+}

@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Buch.Erscheinungsjahr)
             </td>
             <td>
-                <a asp-action="kaufen" asp-route-id="@item.Id">kaufen</a>
+                <a asp-action="kaufen" class="action-btn" asp-route-id="@item.Id">kaufen</a>
             </td>
         </tr>
     }
